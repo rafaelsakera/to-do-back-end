@@ -36,7 +36,6 @@ export const tasksByDate = (req: any, res: any) => {
 };
 
 export const deleteTask = (req: any, res: any) => {
-  console.log(req.data);
   Tasks.remove({
     _id: req.body.taskId,
   })
@@ -45,4 +44,13 @@ export const deleteTask = (req: any, res: any) => {
       console.log("Error: " + err);
       res.send(err);
     });
+};
+
+export const addNewTask = (req: any, res: any) => {
+  const task = new Tasks(req.body);
+  task.save((err: any) =>
+    err
+      ? res.status(501).send({ result: "ho no" })
+      : res.send({ result: "saved" })
+  );
 };

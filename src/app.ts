@@ -16,10 +16,15 @@ mongoose
   .then(() => console.log("connect to db"))
   .then(() => app.listen(8000))
   .catch(() => console.log("error in db connecting"));
-  
 
 // add third party middleware - Pretty logs
 app.use(morgan("dev"));
+
+// Parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+app.use(express.json());
 
 //index route
 app.use(indexRoute);
