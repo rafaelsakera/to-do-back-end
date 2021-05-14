@@ -36,7 +36,7 @@ export const tasksByDate = (req: any, res: any) => {
 };
 
 export const deleteTask = (req: any, res: any) => {
-  Tasks.remove({
+  Tasks.deleteOne({
     _id: req.body.taskId,
   })
     .then(() => res.send("delete"))
