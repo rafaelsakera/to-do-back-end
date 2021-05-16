@@ -54,3 +54,28 @@ export const addNewTask = (req: any, res: any) => {
       : res.send({ result: "saved" })
   );
 };
+
+export const taskById = (req: any, res: any) => {
+  Tasks.find({
+    _id: req.query.taskId,
+  })
+    .then((result: any) => res.send(result))
+    .catch((err: any) => {
+      console.log("Error: " + err);
+      res.send(err);
+    });
+};
+
+export const editTask = (req: any, res: any) => {
+  Tasks.updateOne(
+    {
+      _id: req.body._id,
+    },
+    req.body
+  )
+    .then(() => res.send({ result: "update" }))
+    .catch((err: any) => {
+      console.log("Error: " + err);
+      res.send(err);
+    });
+};
