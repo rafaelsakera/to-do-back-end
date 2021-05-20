@@ -79,3 +79,19 @@ export const editTask = (req: any, res: any) => {
       res.send(err);
     });
 };
+
+export const doneTask = (req: any, res: any) => {
+  Tasks.updateOne(
+    {
+      _id: req.query.taskId,
+    },
+    {
+      done: req.body.done,
+    }
+  )
+    .then(() => res.send({ result: "update" }))
+    .catch((err: any) => {
+      console.log("Error: " + err);
+      res.send(err);
+    });
+};
