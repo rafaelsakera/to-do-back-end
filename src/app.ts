@@ -3,6 +3,7 @@ import morgan from "morgan";
 
 import { default as indexRoute } from "./routes/indexRoute";
 import { default as tasksRoute } from "./routes/tasksRoute";
+import { default as loginRoute } from "./routes/loginRoute";
 
 import mongoose from "mongoose";
 
@@ -21,13 +22,16 @@ mongoose
 app.use(morgan("dev"));
 
 // Parse URL-encoded bodies (as sent by HTML forms)
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 // Parse JSON bodies (as sent by API clients)
 app.use(express.json());
 
 //index route
 app.use(indexRoute);
+
+//login route
+app.use(loginRoute);
 
 //tasks route
 app.use(tasksRoute);
