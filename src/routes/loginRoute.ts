@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import User from "../models/Users";
+import authenticateToken from "../middlewares/Auth";
 import { ACCESS_TOKEN_SECRET } from "../utils/TokenUtils";
 
 let jwt = require("jsonwebtoken");
@@ -45,7 +46,7 @@ router.post("/new-user", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const name = req.body.name;
+  const name = req.body.userName;
   const password = req.body.password;
 
   const user = await User.findOne({
@@ -59,6 +60,12 @@ router.post("/login", async (req, res) => {
   // create and assign token
   const token = jwt.sign({ _id: user._id }, ACCESS_TOKEN_SECRET);
   res.header("auth-token", token).send(token);
+});
+
+router.get("/user-name", authenticateToken, (req: any, res: any) => {
+  User.findOne({
+    _id: req.user._id,
+  }).then((result: any) => res.send(result.name));
 });
 
 export default router;
