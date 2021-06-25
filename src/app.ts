@@ -1,11 +1,10 @@
 import express from "express";
 import morgan from "morgan";
+import mongoose from "mongoose";
 
 import { default as indexRoute } from "./routes/indexRoute";
 import { default as tasksRoute } from "./routes/tasksRoute";
 import { default as loginRoute } from "./routes/loginRoute";
-
-import mongoose from "mongoose";
 
 const app = express();
 

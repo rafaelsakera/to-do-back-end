@@ -10,17 +10,19 @@ import {
   doneTask,
 } from "../controller/tasksController";
 
+import authenticateToken from "../middlewares/Auth";
+
 const router = express.Router();
 
-router.get("/all-tasks", allTasks);
-router.get("/task-by-id", taskById);
-router.get("/today-tasks", todayTasks);
-router.get("/tasks-by-date", tasksByDate);
+router.get("/all-tasks", authenticateToken, allTasks);
+router.get("/task-by-id", authenticateToken, taskById);
+router.get("/today-tasks", authenticateToken, todayTasks);
+router.get("/tasks-by-date", authenticateToken, tasksByDate);
 
-router.post("/edit-task", editTask);
-router.post("/set-task-done", doneTask);
-router.post("/add-new-task", addNewTask);
+router.post("/edit-task", authenticateToken, editTask);
+router.post("/set-task-done", authenticateToken, doneTask);
+router.post("/add-new-task", authenticateToken, addNewTask);
 
-router.delete("/delete-task", deleteTask);
+router.delete("/delete-task", authenticateToken, deleteTask);
 
 export default router;
