@@ -13,8 +13,6 @@ router.post("/new-user", async (req, res) => {
   const password = req.body.password;
   const email = req.body.email;
 
-  // validate
-
   // check if exsist
   const emailCheck = await User.findOne({
     email: email,
@@ -58,7 +56,9 @@ router.post("/login", async (req, res) => {
   if (!validPassword) return res.status(400).send("Password Worng");
 
   // create and assign token
-  const token = jwt.sign({ _id: user._id }, ACCESS_TOKEN_SECRET);
+  const token = jwt.sign({ _id: user._id }, ACCESS_TOKEN_SECRET, {
+    expiresIn: "5h",
+  });
   res.header("auth-token", token).send(token);
 });
 
